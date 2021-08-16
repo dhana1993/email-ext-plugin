@@ -80,47 +80,14 @@
       <td>Cause:</td>
       <td><% build.causes.each() { cause -> %> ${cause.shortDescription} <%  } %></td>
     </tr>
+    <tr>
+      <td>Cause:</td>
+      <td><% build.causes.each() { cause -> %> ${cause.shortDescription} <%  } %></td>
+    </tr>
   </table>
   <br/>
 
-  <!-- CHANGE SET -->
-  <%
-  def changeSets = build.changeSets
-  if(changeSets != null) {
-    def hadChanges = false %>
-  <table class="section">
-    <tr class="tr-title">
-      <td class="td-title" colspan="2">CHANGES</td>
-    </tr>
-    <% changeSets.each() { 
-      cs_list -> cs_list.each() { 
-        cs -> hadChanges = true %>
-    <tr>
-      <td>
-        Revision
-        <%= cs.metaClass.hasProperty('commitId') ? cs.commitId : cs.metaClass.hasProperty('revision') ? cs.revision : cs.metaClass.hasProperty('changeNumber') ? cs.changeNumber : "" %>
-        by <B><%= cs.author %></B>
-      </td>
-      <td>${cs.msgAnnotated}</td>
-    </tr>
-        <% cs.affectedFiles.each() {
-          p -> %>
-    <tr>
-      <td class="filesChanged">${p.editType.name}</td>
-      <td>${p.path}</td>
-    </tr>
-        <% }
-      }
-    }
-    if ( !hadChanges ) { %>
-    <tr>
-      <td colspan="2">No Changes</td>
-    </tr>
-    <% } %>
-  </table>
-  <br/>
-  <% } %>
-
+  
 <!-- ARTIFACTS -->
   <% 
   def artifacts = build.artifacts
